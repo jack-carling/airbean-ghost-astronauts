@@ -34,11 +34,5 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 414px;
-}
-@media screen and (max-width: 414px) {
-  #app {
-    width: 100vw;
-  }
 }
 </style>
