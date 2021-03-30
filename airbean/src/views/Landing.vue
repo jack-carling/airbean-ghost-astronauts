@@ -1,13 +1,41 @@
 <template>
-  <h1>Landing.vue</h1>
+  <div class="landingPage">
+    <img class="designLeft" src="@/assets/intro-graphic-left.svg" />
+    <img class="airbeanLogo" src="@/assets/airbean-landing.svg" />
+    <img class="designRight" src="@/assets/intro-graphic-right.svg" />
+  </div>
 </template>
 
 <script>
 export default {
-
-}
+  name: "mainLandingPage",
+};
 </script>
 
 <style scoped>
+.landingPage {
+  background: #38846d;
+  max-width: 414px;
+  display: grid;
+  grid-auto-columns: 4fr 1fr 3fr;
+  grid-template-areas: "designLeft airbeanLogo designRight";
+}
 
+.designLeft {
+  grid-area: designLeft;
+  height: 100%;
+}
+
+.airbeanLogo {
+  position: absolute;
+  grid-area: airbeanLogo;
+  max-width: 230px;
+  margin-top: 250px;
+  margin-left: 60px;
+}
+
+.designRight {
+  grid-area: designRight;
+  height: 100%;
+}
 </style>
