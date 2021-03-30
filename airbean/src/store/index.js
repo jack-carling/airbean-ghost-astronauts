@@ -20,7 +20,18 @@ export default new Vuex.Store({
       } else {
         state.cart[index].count++;
       }
-      console.log(state.cart[index]);
+    },
+    increaseCount(state, id) {
+      const index = state.cart.findIndex(item => item.id === id);
+      state.cart[index].count++;
+    },
+    decreaseCount(state, id) {
+      const index = state.cart.findIndex(item => item.id === id);
+      if (state.cart[index].count === 1) { // Instead of count being 0 or negative, remove from array
+        state.cart.splice(index, 1);
+      } else {
+        state.cart[index].count--;
+      }
     }
   },
   actions: {
@@ -35,6 +46,11 @@ export default new Vuex.Store({
         return state.cart.reduce((total, item) => {
           return item.count + total
         }, 0) || 0;
+    },
+    cartTotalPrice: (state) => {
+      return state.cart.reduce((total, item) => {
+        return (item.price * item.count) + total
+      }, 0) || 0;
     }
   }
 });
