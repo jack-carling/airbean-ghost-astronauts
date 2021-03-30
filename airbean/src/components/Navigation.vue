@@ -1,18 +1,19 @@
 <template>
   <div class="nav-page">
-      <div class="close-button">
+      <button class="close-button" @click="$router.push('/About')">
         <img src="../assets/close.svg" alt="" class="close-x">
-        
-      </div>
+      </button>
+
       <div class="nav-menu">
-        <h1>Meny</h1>
+        <button class="menu-button">Meny</button>
         <div class="line"></div>
-        <h1>Vårt kaffe</h1>
+        <button class="menu-button">Vårt kaffe</button>
         <div class="line"></div>
-        <h1>Min Profil</h1>
+        <button class="menu-button">Min Profil</button>
         <div class="line"></div>
-        <h1>Orderstatus</h1>
+        <button class="menu-button">Orderstatus</button>
       </div>
+
   </div>
 </template>
 
@@ -44,6 +45,8 @@ export default {
   position: absolute;
   top: 1rem;
   left: 1rem;
+  cursor: pointer;
+  outline: 0;
 
 }
 
@@ -52,7 +55,7 @@ export default {
   height: 26px;
 }                         
 
-h1{
+.menu-button{
   color: #FFFFFF;
   font-family: 'PT Serif', serif;
   text-align: center;
@@ -61,6 +64,11 @@ h1{
   font-weight: bold;
   font-size: 32px;
   line-height: 120%;
+  cursor: pointer;
+  padding: 20px;
+  background-color:  #2F2926;
+  border: none;
+  outline: 0;
 }
 
 .line{
