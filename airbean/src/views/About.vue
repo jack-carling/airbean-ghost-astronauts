@@ -2,6 +2,7 @@
 <div class="aboutpage">
   <img class="abouthead" src="../assets/graphics-header.svg" alt="header">
   <NavigationButton class="navigation" />
+  <Navigation class="navigation-overlay" />
   <h1 class="abouttitle">Vårt kaffe</h1>
   <h2>Pumpkin spice mug, barista cup, sit macchiato, kopi-luwak, doppio, grounds dripper, crema, strong whipped, variety extra iced id lungo half and half mazagran. Pumpkin spice.
   </h2>
@@ -22,15 +23,18 @@
 
 <script>
 import NavigationButton from '../components/NavigationButton.vue'
+import Navigation from '../components/Navigation.vue'
 
 export default {
   components: {
-    NavigationButton
+    NavigationButton,
+    Navigation
   }
 }
 </script>
 
 <style scoped>
+
 .navigation {
   position: absolute;
   left: 0;
