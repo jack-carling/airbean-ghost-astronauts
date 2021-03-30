@@ -1,5 +1,5 @@
 <template>
-  <div class="button" @click="$emit('toggle-cart')">
+  <div class="button" @click="toggleCart">
     <img src="@/assets/bag.svg" alt="">
     <div class="count">
       <span>{{ counter }}</span>
@@ -13,14 +13,24 @@ export default {
     counter() {
       return this.$store.getters.cartTotal;
     }
+  },
+  methods: {
+    toggleCart() {
+      const path = this.$route.path;
+      if (path === '/cart') {
+        this.$router.push('/menu');
+      } else {
+        this.$router.push('/cart');
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
 div.button {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   background-color: #2F2926;
   border-radius: 50%;
   display: grid;
@@ -34,8 +44,8 @@ div.count {
   background-color: #E5674E;
   border-radius: 50%;
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -4px;
+  right: 0;
   display: grid;
   place-items: center;
 }
