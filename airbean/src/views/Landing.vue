@@ -15,7 +15,7 @@ export default {
 <style scoped>
 .landingPage {
   background: #38846d;
-  max-width: 414px;
+  height: 100%;
   display: grid;
   grid-auto-columns: 4fr 1fr 3fr;
   grid-template-areas: "designLeft airbeanLogo designRight";
@@ -29,9 +29,10 @@ export default {
 .airbeanLogo {
   position: absolute;
   grid-area: airbeanLogo;
-  max-width: 230px;
-  margin-top: 250px;
-  margin-left: 60px;
+  width: 230px;
+  margin: 250px auto 0 auto;
+  left: 0;
+  right: 0;
 }
 
 .designRight {

@@ -1,13 +1,10 @@
 <template>
   <main>
     <img class="svg header" src="@/assets/graphics-header.svg" alt="">
-      <div class="main">
         <section class="navigation">
-          <NavigationButton />
-          Hej
+          <NavigationButton /> 
         </section>
         <h1>Meny</h1>
-      </div>
     <img class="svg footer" src="@/assets/graphics-footer.svg" alt="">
   </main>
 </template>
@@ -24,18 +21,13 @@ export default {
 
 <style scoped>
 main {
-  width: 100vw;
-  height: 100vh;
-  background-color: #F3E4E1;
-  display: flex;
-  justify-content: center;
-}
-div.main {
-  width: 414px;
+  width: 100%;
+  height: 100%;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #F3E4E1;
 }
 section.navigation {
   display: flex;
@@ -48,7 +40,6 @@ h1 {
   margin: 2.5rem 0;
 }
 img.svg {
-  width: 414px;
   position: absolute;
 }
 img.svg.header {
