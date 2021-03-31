@@ -1,8 +1,8 @@
 <template>
 <div class="aboutpage">
   <img class="abouthead" src="../assets/graphics-header.svg" alt="header">
-  <NavigationButton />
-  <Navigation class="navigation-overlay" />
+  <NavigationButton @click.native="showNav = true" class="navigation"/>
+  <Navigation @close-nav="showNav = false" v-if="showNav" />
   <h1 class="abouttitle">Vårt kaffe</h1>
   <h2>Pumpkin spice mug, barista cup, sit macchiato, kopi-luwak, doppio, grounds dripper, crema, strong whipped, variety extra iced id lungo half and half mazagran. Pumpkin spice.
   </h2>
@@ -29,6 +29,11 @@ export default {
   components: {
     NavigationButton,
     Navigation
+  },
+  data() {
+    return {
+      showNav: false
+    }
   }
 }
 </script>

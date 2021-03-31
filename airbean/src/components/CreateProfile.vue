@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="createProfile">
     <img class="logo__dark" src="@/assets/airbean-logo-dark.svg" />
@@ -23,7 +21,7 @@
       />
       <p>GDPR Ok!</p>
 
-      <input type="radio" class="okGDPR" v-model="GDPR" />
+      <input type="radio" class="okGDPR" v-model="gdpr" />
       <button @click="saveProfile">Logga in</button>
     </section>
   </div>
@@ -41,10 +39,11 @@ export default {
       gdpr: false,
     };
   },
-  saveProfile() {
-    this.$store.dispatch("setProfile", this.profile);
-    this.$store.dispatch("toggleSignUp");
-  },
+  methods: {
+    saveProfile() {
+      this.$store.dispatch("setProfile", this.profile);
+    },
+  }
 };
 </script>
 

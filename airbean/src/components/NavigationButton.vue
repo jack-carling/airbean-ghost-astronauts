@@ -1,5 +1,5 @@
 <template>
-  <div class="button" @click="$emit('toggle-navigation')">
+  <div class="button">
     <img src="@/assets/navicon.svg" alt="">
   </div>
 </template>

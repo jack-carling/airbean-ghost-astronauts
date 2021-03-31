@@ -1,17 +1,17 @@
 <template>
   <div class="nav-page">
-      <button class="close-button" @click="$router.push('/About')">
+      <div class="close-button" @click="$emit('close-nav')">
         <img src="../assets/close.svg" alt="" class="close-x">
-      </button>
+      </div>
 
       <div class="nav-menu">
-        <button class="menu-button">Meny</button>
+        <button class="menu-button" @click="goToPage('/menu')">Meny</button>
         <div class="line"></div>
-        <button class="menu-button">Vårt kaffe</button>
+        <button class="menu-button" @click="goToPage('/about')">Vårt kaffe</button>
         <div class="line"></div>
-        <button class="menu-button">Min Profil</button>
+        <button class="menu-button" @click="goToPage('/profile')">Min Profil</button>
         <div class="line"></div>
-        <button class="menu-button">Orderstatus</button>
+        <button class="menu-button" @click="goToPage('/status')">Orderstatus</button>
       </div>
 
   </div>
@@ -19,7 +19,16 @@
 
 <script>
 export default {
-
+  methods: {
+    goToPage(page) {
+      const currentPage = this.$route.path;
+      if (currentPage === page) {
+        this.$emit('close-nav');
+      } else {
+        this.$router.push(page);
+      }
+    }
+  }
 }
 </script>
 
@@ -47,7 +56,6 @@ export default {
   left: 1rem;
   cursor: pointer;
   outline: 0;
-
 }
 
 .close-x{

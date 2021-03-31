@@ -11,7 +11,7 @@
             <span class="price">{{ total }}</span>
             <span class="info">inkl moms + drönarleverans</span>
           </div>
-            <button>Take my money!</button>
+            <button @click="placeOrder" :class="{wiggle: error}">Take my money!</button>
         </footer>
       </div>
   </div>
@@ -26,9 +26,30 @@ export default {
     Menu,
     CartItems
   },
+  data() {
+    return {
+      error: false
+    }
+  },
   computed: {
     total() {
       return this.$store.getters.cartTotalPrice + ' kr';
+    }
+  },
+  methods: {
+    placeOrder() {
+      const total = this.$store.getters.cartTotalPrice;
+      if (total === 0) {
+        this.error = true;
+      } else {
+        this.error = false;
+        const date = new Date().toISOString();
+        const total = this.$store.getters.cartTotalPrice;
+        const email = this.$store.state.profile.email ?? 'guest';
+        const payload = {date, total, email};
+        this.$store.dispatch('placeOrder', payload);
+        this.$router.push('/status');
+      }
     }
   }
 }
@@ -81,6 +102,17 @@ div.overlay-white::after {
 h1 {
   font-family: 'PT Serif', serif;
   text-align: center;
+}
+.wiggle {
+  animation: wiggle 0.3s;
+  animation-iteration-count: 3;
+}
+@keyframes wiggle {
+  0%    {transform: translateX(0px);}
+  25%   {transform: translateX(-2px);}
+  50%   {transform: translateX(0px);}
+  75%   {transform: translateX(2px);}
+  100%  {transform: translateX(0px);}
 }
 footer {
   width: 100%;

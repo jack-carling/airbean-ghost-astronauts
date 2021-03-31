@@ -1,7 +1,8 @@
 <template>
   <main>
     <img class="svg header" src="@/assets/graphics-header.svg" alt="">
-          <NavigationButton class="navigation" />
+          <NavigationButton @click.native="showNav = true" class="navigation"/>
+          <Navigation @close-nav="showNav = false" v-if="showNav" />
           <CartButton class="cart" />
         <h1>Meny</h1>
         <MenuItems />
@@ -11,14 +12,21 @@
 
 <script>
 import NavigationButton from '../components/NavigationButton.vue'
+import Navigation from '../components/Navigation.vue'
 import CartButton from '../components/CartButton.vue'
 import MenuItems from '../components/MenuItems.vue'
 
 export default {
   components: {
     NavigationButton,
+    Navigation,
     CartButton,
     MenuItems
+  },
+  data() {
+    return {
+      showNav: false
+    }
   },
   created() {
     this.$store.dispatch('getMenu');
