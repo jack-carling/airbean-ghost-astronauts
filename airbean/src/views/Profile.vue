@@ -1,7 +1,8 @@
 <template>
   <section class="main__wrapper">
     <section class="header">
-      <NavigationButton class="navigation" />
+      <NavigationButton @click.native="showNav = true" class="navigation"/>
+      <Navigation @close-nav="showNav = false" v-if="showNav" />
       <img class="graphics__header" src="@/assets/graphics-header.svg" />
     </section>
 
@@ -16,7 +17,7 @@
       <!-- sixten.kaffelover@zocom.se --->
     </div>
 
-    <createProfile v-show="openSignUp" />
+    <CreateProfile v-if="!loggedIn" class="create__profile" />
 
     <h1 class="header__main--space">Orderhistorik</h1>
 
@@ -25,15 +26,15 @@
       v-for="purchase in purchaseHistory"
       :key="purchase.purchaseNum"
     >
-      <span class="reference__number">{{ purchase.purchaseNumber }}</span>
-      <span class="purchase__date">{{ purchase.date }}</span>
+      <span class="reference__number">#{{ purchase.purchaseNum }}</span>
+      <span class="purchase__date">{{ styleDate(purchase.date) }}</span>
       <span class="summary__title">total ordersumma</span>
-      <span class="purchase__price">{{ purchase.total }}</span>
+      <span class="purchase__price">{{ purchase.total }} kr</span>
     </li>
 
     <li class="grand__total">
       <p>Total spenderat</p>
-      <p>{{ totalCost }}kr</p>
+      <p>{{ totalCost }} kr</p>
     </li>
   </section>
 </template>
@@ -41,22 +42,39 @@
 
 <script>
 import NavigationButton from "@/components/NavigationButton.vue";
-import createProfile from "@/components/CreateProfile";
+import Navigation from '../components/Navigation.vue';
+import CreateProfile from "@/components/CreateProfile";
 
 export default {
   components: {
     NavigationButton,
-    createProfile,
+    Navigation,
+    CreateProfile,
   },
-
+  data() {
+    return {
+      showNav: false
+    }
+  },
   methods: {
-    createProfile() {
-      this.$store.dispatch("toggleSignUp");
-    },
+    styleDate(date) {
+      const displayDate = new Date(date);
+      let year = displayDate.getFullYear();
+      year = year.toString().slice(2);
+      let month = (displayDate.getMonth()+1).toString();
+      if (month.length === 1) {
+        month = '0' + month;
+      }
+      let day = (displayDate.getDate()).toString();
+      if (day.length === 1) {
+        day = '0' + day;
+      }
+      return `${day}/${month}/${year}`;
+    }
   },
   computed: {
-    openSignUp() {
-      return this.$store.state.openSignUp;
+    loggedIn() {
+      return this.$store.state.profile.loggedIn;
     },
     profile() {
       return this.$store.state.profile;
@@ -65,16 +83,16 @@ export default {
       return this.$store.state.purchaseHistory;
     },
     totalCost() {
-      return this.$store.getters.totalCost;
+      const history = this.$store.state.purchaseHistory;
+      console.log(history);
+      if (history.length === 0) return
+      let total = 0;
+      for (let i = 0; i < history.length; i++) {
+        total += Number(history[i].total);
+      }
+      return total;
     },
-  },
-  created() {
-    if (this.profile.id) {
-      this.$store.dispatch("getPurchases", this.profile.id);
-    } else {
-      this.$store.dispatch("setId");
-    }
-  },
+  }
 };
 </script>
 
@@ -125,7 +143,7 @@ export default {
   line-height: 16.8px;
 }
 
-.past__orders {
+.purchase__history {
   display: grid;
   grid-template-columns: 50% 50%;
 }
@@ -211,5 +229,14 @@ span:nth-child(odd) {
   line-height: 17px;
   letter-spacing: 0em;
   color: #ffff;
+}
+
+.create__profile {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
 }
 </style>
