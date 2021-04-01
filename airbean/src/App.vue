@@ -12,11 +12,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&family=Rufina:wght@400;700&family=Work+Sans:wght@400;700&display=swap');
-/*
-font-family: 'PT Serif', serif; // font-weight: 700
-font-family: 'Rufina', serif; // font-weight: 400 or 700
-font-family: 'Work Sans', sans-serif; // font-weight: 400 or 700
-*/
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 * {
   box-sizing: border-box;
 }
