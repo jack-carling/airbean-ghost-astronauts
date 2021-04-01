@@ -16,6 +16,7 @@
         placeholder="Namn"
         v-model="profile.name"
       />
+      <span v-if="errors.name" class="error"><i class="material-icons">error</i>{{errors.name}}</span>
       <label for="email">Epost</label>
       <input
         class="signup__form-text-input"
@@ -24,11 +25,12 @@
         placeholder="epost@exempel.com"
         v-model="profile.email"
       />
-
+      <span v-if="errors.email" class="error"><i class="material-icons">error</i>{{errors.email}}</span>
       <footer class="signup__footer">
-        <input type="radio" class="okGDPR" v-model="gdpr" />
+        <input type="radio" class="okGDPR" v-model="gdpr" value="ok" />
         <label for="okGDPR">GDPR Ok!</label>
       </footer>
+      <span v-if="errors.gdpr" class="error"><i class="material-icons">error</i>{{errors.gdpr}}</span>
       <button @click="saveProfile">Logga in</button>
     </section>
   </div>
@@ -43,12 +45,37 @@ export default {
         name: "",
         email: "",
       },
-      gdpr: false,
+      gdpr: "",
+      errors: {
+        name: "",
+        email: "",
+        gdpr: ""
+      }
     };
   },
   methods: {
     saveProfile() {
-      this.$store.dispatch("setProfile", this.profile);
+      if (this.profile.name.length !== 0) {
+        this.errors.name = '';
+      } else {
+        this.errors.name = 'Detta fältet kan inte lämnas tomt.';
+      }
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (re.test(this.profile.email)) {
+        this.errors.email = '';
+      } else {
+        this.errors.email = 'Fyll i en giltig e-postadress.'
+      }
+      if (this.gdpr === 'ok') {
+        this.errors.gdpr = '';
+      } else {
+        this.errors.gdpr = 'GDPR måste godkännas.';
+      }
+      const allErrors = Object.values(this.errors);
+      const allEmpty = allErrors.every(error => error === '');
+      if (allEmpty) {
+        this.$store.dispatch("setProfile", this.profile);
+      }
     },
   },
 };
@@ -58,7 +85,6 @@ export default {
 .createProfile {
   margin-top: 100px;
   position: fixed;
-  z-index: 900;
   background-color: #f3e4e1;
   border-radius: 0.5%;
   border: 2px, solid #2f2926;
@@ -72,6 +98,17 @@ export default {
   align-items: center;
   text-align: center;
   justify-content: center;
+}
+
+.error {
+  color: #E5674E;
+  display: flex;
+  font-size: 14px;
+  margin: 0.2rem 0;
+}
+.error i {
+  font-size: 16px;
+  margin-right: 0.2rem;
 }
 
 h1 {
@@ -107,6 +144,10 @@ p {
   margin-left: 20px;
 }
 
+input[type="radio"] {
+  margin: 20px 0.2rem 0 0;
+}
+
 label {
   font-family: Work Sans;
   font-style: normal;
@@ -115,16 +156,21 @@ label {
   line-height: 120%;
 }
 
+label:nth-of-type(2) {
+  margin-top: 20px;
+  display: inline-block;
+}
+
 .signup__form-text-input {
   border: 1px solid #2f2926;
   box-sizing: border-box;
   border-radius: 6px;
-  margin-bottom: 20px;
   width: 305px;
   height: 48px;
   left: 33px;
   padding: 3%;
   background-color: #f3e4e1;
+  outline: 0;
 }
 
 button {
@@ -147,7 +193,7 @@ button {
   margin-left: auto;
   left: 0;
   right: 0;
-  bottom: 5rem;
+  bottom: 2rem;
   outline: 0;
 }
 

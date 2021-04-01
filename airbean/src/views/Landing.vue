@@ -8,7 +8,11 @@
 
 <script>
 export default {
-  name: "mainLandingPage",
+  mounted() {
+    setTimeout(() => {
+      this.$router.push('/menu');
+    }, 2000)
+  }
 };
 </script>
 

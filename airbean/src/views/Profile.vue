@@ -21,21 +21,26 @@
 
     <h1 class="header__main--space">Orderhistorik</h1>
 
-    <li
-      class="purchase__history"
-      v-for="purchase in purchaseHistory"
-      :key="purchase.purchaseNum"
-    >
-      <span class="reference__number">#{{ purchase.purchaseNum }}</span>
-      <span class="purchase__date">{{ styleDate(purchase.date) }}</span>
-      <span class="summary__title">total ordersumma</span>
-      <span class="purchase__price">{{ purchase.total }} kr</span>
-    </li>
+    <template v-if="purchaseHistory.length">
+      <li
+        class="purchase__history"
+        v-for="purchase in purchaseHistory"
+        :key="purchase.purchaseNum"
+      >
+        <span class="reference__number">#{{ purchase.purchaseNum }}</span>
+        <span class="purchase__date">{{ styleDate(purchase.date) }}</span>
+        <span class="summary__title">total ordersumma</span>
+        <span class="purchase__price">{{ purchase.total }} kr</span>
+      </li>
 
-    <li class="grand__total">
-      <p>Total spenderat</p>
-      <p>{{ totalCost }} kr</p>
-    </li>
+      <li class="grand__total">
+        <p>Total spenderat</p>
+        <p>{{ totalCost }} kr</p>
+      </li>
+    </template>
+    <template v-else>
+      <p class="zero">Du har inte lagt några beställningar än</p>
+    </template>
   </section>
 </template>
 
@@ -84,7 +89,6 @@ export default {
     },
     totalCost() {
       const history = this.$store.state.purchaseHistory;
-      console.log(history);
       if (history.length === 0) return
       let total = 0;
       for (let i = 0; i < history.length; i++) {
@@ -92,6 +96,11 @@ export default {
       }
       return total;
     },
+  },
+  mounted() {
+    const email = this.$store.state.profile.email;
+    if (email === undefined) return
+    this.$store.dispatch('getPurchases', email);
   }
 };
 </script>
@@ -105,7 +114,7 @@ export default {
 
 .main__wrapper {
   background-color: #2f2926;
-  height: 100vh;
+  min-height: 100%;
   position: relative;
 }
 
@@ -128,10 +137,21 @@ export default {
   margin-bottom: 0;
 }
 
+.zero {
+  margin: 5%;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0em;
+  color: #ffff;
+}
+
 .header__main--space {
   text-align: left;
   color: #ffff;
-  margin-left: 6%;
+  margin-left: 5%;
 }
 
 .profile__email {
@@ -218,7 +238,7 @@ span:nth-child(odd) {
 .grand__total {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  /* border-top: 1px solid rgba(255, 255, 255, 0.6); */
   margin: 5%;
   flex-direction: row;
   justify-content: space-between;
@@ -229,6 +249,11 @@ span:nth-child(odd) {
   line-height: 17px;
   letter-spacing: 0em;
   color: #ffff;
+}
+
+.grand__total p {
+  margin: 0;
+  padding-bottom: 2rem;
 }
 
 .create__profile {
