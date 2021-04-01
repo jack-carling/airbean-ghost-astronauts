@@ -1,4 +1,16 @@
 {
-  "profiles": [],
-  "purchases": []
+  "profiles": [
+    {
+      "name": "",
+      "email": ""
+    }
+  ],
+  "purchases": [
+    {
+      "date": "2021-04-01T02:24:19.771Z",
+      "total": "181",
+      "email": "",
+      "purchaseNum": "AB1617243859773Z"
+    }
+  ]
 }
