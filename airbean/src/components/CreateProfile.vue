@@ -15,6 +15,7 @@
         name="name"
         placeholder="Namn"
         v-model="profile.name"
+        autocomplete="off"
       />
       <span v-if="errors.name" class="error"><i class="material-icons">error</i>{{errors.name}}</span>
       <label for="email">Epost</label>
@@ -24,6 +25,7 @@
         name="email"
         placeholder="epost@exempel.com"
         v-model="profile.email"
+        autocomplete="off"
       />
       <span v-if="errors.email" class="error"><i class="material-icons">error</i>{{errors.email}}</span>
       <footer class="signup__footer">
