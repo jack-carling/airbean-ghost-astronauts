@@ -10,11 +10,7 @@
       <img class="display__image" src="@/assets/profile.svg" />
 
       <h1 class="header__main">{{ profile.name }}</h1>
-      <!-- {{ profile.name }} --->
-      <!-- Sixten Kaffelöver --->
       <h2 class="profile__email">{{ profile.email }}</h2>
-      <!-- {{ profile.email }} --->
-      <!-- sixten.kaffelover@zocom.se --->
     </div>
 
     <CreateProfile v-if="!loggedIn" class="create__profile" />
@@ -85,7 +81,8 @@ export default {
       return this.$store.state.profile;
     },
     purchaseHistory() {
-      return this.$store.state.purchaseHistory;
+      const purchaseHistory = [...this.$store.state.purchaseHistory];
+      return purchaseHistory.reverse();
     },
     totalCost() {
       const history = this.$store.state.purchaseHistory;
