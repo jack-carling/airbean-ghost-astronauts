@@ -1,7 +1,7 @@
 <template>
   <section class="main__wrapper">
     <section class="header">
-      <NavigationButton @click.native="showNav = true" class="navigation"/>
+      <NavigationButton @click.native="showNav = true" class="navigation" />
       <Navigation @close-nav="showNav = false" v-if="showNav" />
       <img class="graphics__header" src="@/assets/graphics-header.svg" />
     </section>
@@ -43,7 +43,7 @@
 
 <script>
 import NavigationButton from "@/components/NavigationButton.vue";
-import Navigation from '../components/Navigation.vue';
+import Navigation from "../components/Navigation.vue";
 import CreateProfile from "@/components/CreateProfile";
 
 export default {
@@ -54,24 +54,24 @@ export default {
   },
   data() {
     return {
-      showNav: false
-    }
+      showNav: false,
+    };
   },
   methods: {
     styleDate(date) {
       const displayDate = new Date(date);
       let year = displayDate.getFullYear();
       year = year.toString().slice(2);
-      let month = (displayDate.getMonth()+1).toString();
+      let month = (displayDate.getMonth() + 1).toString();
       if (month.length === 1) {
-        month = '0' + month;
+        month = "0" + month;
       }
-      let day = (displayDate.getDate()).toString();
+      let day = displayDate.getDate().toString();
       if (day.length === 1) {
-        day = '0' + day;
+        day = "0" + day;
       }
       return `${day}/${month}/${year}`;
-    }
+    },
   },
   computed: {
     loggedIn() {
@@ -86,7 +86,7 @@ export default {
     },
     totalCost() {
       const history = this.$store.state.purchaseHistory;
-      if (history.length === 0) return
+      if (history.length === 0) return;
       let total = 0;
       for (let i = 0; i < history.length; i++) {
         total += Number(history[i].total);
@@ -96,9 +96,9 @@ export default {
   },
   mounted() {
     const email = this.$store.state.profile.email;
-    if (email === undefined) return
-    this.$store.dispatch('getPurchases', email);
-  }
+    if (email === undefined) return;
+    this.$store.dispatch("getPurchases", email);
+  },
 };
 </script>
 
@@ -168,7 +168,7 @@ export default {
 span {
   font-size: 14px;
   margin-bottom: 0;
-  color: #ffff;
+  color: rgba(255, 255, 255, 0.8);
   background-color: #2f2926;
   margin: 0 10%;
   width: 90%;
@@ -235,8 +235,10 @@ span:nth-child(odd) {
 .grand__total {
   display: flex;
   flex-direction: column;
-  /* border-top: 1px solid rgba(255, 255, 255, 0.6); */
-  margin: 5%;
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  margin-top: -10px;
+  margin-left: 5%;
+  margin-right: 5%;
   flex-direction: row;
   justify-content: space-between;
   font-family: Work Sans;
@@ -245,7 +247,8 @@ span:nth-child(odd) {
   font-weight: 700;
   line-height: 17px;
   letter-spacing: 0em;
-  color: #ffff;
+  color: rgba(255, 255, 255, 0.8);
+  padding-top: 2.5%;
 }
 
 .grand__total p {
